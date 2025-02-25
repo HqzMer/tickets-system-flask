@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Tickets</title>
+</head>
+<body>
+    <h1>Lista de Tickets</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.title.label }} {{ form.title() }}</p>
+        <p>{{ form.description.label }} {{ form.description() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <ul>
+        {% for ticket in tickets %}
+            <li><a href="{{ url_for('ticketsRouting.ticket_detail', id=ticket.id) }}">{{ ticket.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

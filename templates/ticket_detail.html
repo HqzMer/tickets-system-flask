@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .ticket-info {
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            color: white;
+            background: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tickets details #{{ ticket.id }}</h1>
+    <div class="ticket-info">
+        <strong>Title:</strong> {{ ticket.title }}
+    </div>
+    <div class="ticket-info">
+        <strong>Description:</strong> {{ ticket.description }}
+    </div>
+    <div class="ticket-info">
+        <strong>Status:</strong> {{ ticket.status }}
+    </div>
+    <div class="ticket-info">
+        <strong>Created at:</strong> {{ ticket.created_at.strftime('%d/%m/%Y %H:%M') }}
+    </div>
+
+    <a href="{{ url_for('ticketsRouting.tickets') }}" class="btn">Back</a>
+</div>
+
+</body>
+</html>

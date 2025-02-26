@@ -6,6 +6,19 @@
 </head>
 <body>
     <h1>¡Welcome to ticket administration system!</h1>
-    <a href="/tickets">Add new ticket</a>
+    
+        {% if current_user.is_authenticated %}
+        <h1>You are logged in</h1>
+        <a href="/tickets">Add new ticket</a>
+        <a href="/logout">Logout</a>
+        {% else %}
+        <h1>You are not logged in</h1>
+        <nav>
+            <ul>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Create account</a></li>
+            </ul>
+            </nav>
+        {% endif %}
 </body>
 </html>

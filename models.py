@@ -9,11 +9,14 @@ class Ticket(db.Model):
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), default="Open")
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f'<Ticket {self.title}>'
+        return f"Ticket('{self.title}', '{self.author.username}')"
     
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    # Relación con Ticket (un usuario puede tener muchos tickets)
+    tickets = db.relationship('Ticket', backref='author', lazy=True)

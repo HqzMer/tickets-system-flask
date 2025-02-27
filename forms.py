@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 class TicketForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
-    submit = SubmitField('Add ticket')
+    submit = SubmitField('Save')
 
 class LoginForm(FlaskForm):
     username = StringField('User', validators=[DataRequired()])

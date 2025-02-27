@@ -17,7 +17,11 @@
 
     <ul>
         {% for ticket in tickets %}
-            <li><a href="{{ url_for('ticketsRouting.ticket_detail', id=ticket.id) }}">{{ ticket.title }}</a></li>
+            <li><a href="{{ url_for('ticketsRouting.ticket_detail', id=ticket.id) }}">{{ ticket.title }}</a>
+                <a href="{{ url_for('ticketsRouting.edit_ticket', id=ticket.id) }}">Editar</a>
+                <form action="{{ url_for('ticketsRouting.delete_ticket', ticket_id=ticket.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" onclick="return confirm('¿Seguro que deseas eliminar este ticket?');">Eliminar</button>
+                </form>
         {% endfor %}
     </ul>
 

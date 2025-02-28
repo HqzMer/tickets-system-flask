@@ -29,12 +29,12 @@ def ticket_detail(id):
 def edit_ticket(id):
     ticket = Ticket.query.get_or_404(id)
 
-    # Asegurar que solo el creador del ticket pueda editarlo
+    # Ensure that the creator only can edit it
     if ticket.user_id != current_user.id:
         flash('No tienes permiso para editar este ticket.', 'danger')
         return redirect(url_for('index'))
 
-    form = TicketForm(obj=ticket)  # Rellena el formulario con los datos actuales
+    form = TicketForm(obj=ticket) 
 
     if form.validate_on_submit():
         ticket.title = form.title.data
@@ -50,7 +50,7 @@ def edit_ticket(id):
 def delete_ticket(ticket_id):
     ticket = Ticket.query.get_or_404(ticket_id)
 
-    if ticket.user_id != current_user.id:  # Verificar dueño
+    if ticket.user_id != current_user.id:  # Check user
         flash('No tienes permiso para eliminar este ticket.', 'danger')
         return redirect(url_for('index'))
 

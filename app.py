@@ -3,13 +3,15 @@ from models import db,User
 from routes_tickets import ticketsRouting
 from forms import LoginForm
 from flask_login import LoginManager,login_user,logout_user,login_required
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
 app.register_blueprint(ticketsRouting)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = 'clave_secreta'  # Para formularios y sesiones
+app.config['SECRET_KEY'] = 'clave_secreta'
+migrate = Migrate(app, db)
 
 db.init_app(app)
 
@@ -31,8 +33,8 @@ def register():
   # If the user made a POST request, create a new user
     form = LoginForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data,
-                     password=form.password.data)
+        user = User(username=form.username.data)
+        user.set_password(form.password.data)
         # Add the user to the database
         db.session.add(user)
         # Commit the changes made
@@ -52,7 +54,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
 		# Check if the password entered is the 
 		# same as the user's password
-        if user.password == form.password.data:
+        if user and user.check_password(form.password.data):
         # Use the login_user method to log in the user
             login_user(user)
             return redirect(url_for("index"))

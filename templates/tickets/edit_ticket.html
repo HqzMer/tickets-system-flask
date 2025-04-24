@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Tickets</title>
-    <meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-<body>
-    <h2>Editar Ticket</h2>
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Ticket edit{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
     <form method="POST">
         {{ form.hidden_tag() }}
 
@@ -25,5 +22,4 @@
     </form>
 
     <a href="{{ url_for('ticketsRouting.tickets') }}">Cancelar</a>
-</body>
-</html>
+{% endblock %}

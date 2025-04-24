@@ -1,0 +1,83 @@
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock %} - Flask</title>
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item has-text-weight-bold" href="{{url_for('index')}}">
+      <svg width="150" height="120" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ticket background #1 -->
+        <rect x="25" y="30" width="110" height="80" rx="6" ry="6" fill="#FFFFFF" stroke="#2C3E50" stroke-width="2"/>
+        <!-- Ticket background #2 (overlapping) -->
+        <rect x="35" y="24" width="110" height="80" rx="6" ry="6" fill="#F3F4F6" stroke="#2C3E50" stroke-width="2"/>
+        <!-- Text: TiSys centered inside front ticket -->
+        <text x="80" y="85" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="32" fill="#1E3A8A" font-weight="600">TiSys</text>
+      </svg></a>
+      
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              Documentation
+            </a>
+            </div>
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <span>{{ g.user['username'] }}</span>
+          <div class="buttons">
+            {% if g.user %}
+      <a class="button is-outlined is-danger" href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <a class="button is-primary" href="{{ url_for('auth.register') }}"><strong>Sign up</strong></a>
+      <a class="button is-light" href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      
+        // Add a click event on each of them
+        $navbarBurgers.forEach( el => {
+          el.addEventListener('click', () => {
+      
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+      
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+      
+          });
+        });
+      
+      });
+</script>

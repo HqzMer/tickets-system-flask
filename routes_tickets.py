@@ -16,13 +16,13 @@ def tickets():
         return redirect(url_for('ticketsRouting.tickets'))
     
     all_tickets = Ticket.query.filter_by(user_id=current_user.id).all()
-    return render_template('tickets.html', form=form, tickets=all_tickets)
+    return render_template('tickets/tickets.html', form=form, tickets=all_tickets)
 
 @ticketsRouting.route('/ticket/<int:id>')
 @login_required
 def ticket_detail(id):
     ticket = Ticket.query.get_or_404(id)
-    return render_template('ticket_detail.html', ticket=ticket)
+    return render_template('tickets/ticket_detail.html', ticket=ticket)
 
 @ticketsRouting.route('/edit_ticket/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -43,7 +43,7 @@ def edit_ticket(id):
         flash('Ticket actualizado correctamente', 'success')
         return redirect(url_for('ticketsRouting.tickets'))
 
-    return render_template('edit_ticket.html', form=form)
+    return render_template('tickets/edit_ticket.html', form=form)
 
 @ticketsRouting.route('/delete_ticket/<int:ticket_id>', methods=['POST'])
 @login_required

@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Tickets</title>
-    <meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-<body>
-    <h1>Lista de Tickets</h1>
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Tickets list{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
     <form method="POST">
         {{ form.hidden_tag() }}
         <p>{{ form.title.label }} {{ form.title() }}</p>
@@ -24,7 +21,4 @@
                 </form>
         {% endfor %}
     </ul>
-
-    <a href="{{url_for('index')}}">Home</a>
-</body>
-</html>
+{% endblock %}
